@@ -23,7 +23,7 @@ namespace VOL.Core.Extensions
     public static class AutofacContainerModuleExtension
     {
         private static bool _isMysql = false;
-        public static IServiceProvider AddModule(this IServiceCollection services, IConfiguration configuration)
+        public static void AddModule(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSession();
             services.AddMemoryCache();
@@ -31,22 +31,28 @@ namespace VOL.Core.Extensions
             AppSetting.Init(services, configuration);
             ContainerBuilder builder = new ContainerBuilder();
 
+            
             //批量注入autofac
-            Type baseType = typeof(IDependency);
-            var compilationLibrary = DependencyContext.Default.CompileLibraries.Where(x => !x.Serviceable && x.Type != "package");
+           /* Type baseType = typeof(IDependency);
+            var compilationLibrary = DependencyContext.Default.CompileLibraries.Where(x => !x.Serviceable && x.Type == "project");
             List<Assembly> assemblyList = new List<Assembly>();
             foreach (var _compilation in compilationLibrary)
             {
-                assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(_compilation.Name)));
+               
+                    var a = new AssemblyName(_compilation.Name);
+                    assemblyList.Add(AssemblyLoadContext.Default.LoadFromAssemblyName(a));
+                
+               
             }
             builder.RegisterAssemblyTypes(assemblyList.ToArray())
              .Where(type => baseType.IsAssignableFrom(type) && !type.IsAbstract)
              .AsSelf().AsImplementedInterfaces() //.PropertiesAutowired()//属性注入
-             .InstancePerLifetimeScope();
-
+             .InstancePerLifetimeScope();*/
+             
             //注入用管理类,将用户信息写入上下文管理，减少redis或memory使用，提高效率
             services.AddScoped(typeof(UserContext));
             services.AddScoped(typeof(Services.ActionObserver));
+
             //注入EF
             _isMysql = DBType.Name == DbCurrentType.MySql.ToString();
             void dbContextOptions(DbContextOptionsBuilder optionsBuilder)
@@ -72,9 +78,10 @@ namespace VOL.Core.Extensions
             {
                 services.AddSingleton<ICacheService, MemoryCacheService>();
             }
-        
-            builder.Populate(services);
-            return new AutofacServiceProvider(builder.Build());
+
+           /* builder.Populate(services);
+            return new AutofacServiceProvider(builder.Build());*/
+            //return null;
         }
 
     }

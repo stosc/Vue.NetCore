@@ -1,17 +1,14 @@
-﻿using VOL.Core.Dapper;
-using VOL.Core.DBManager;
+﻿using VOL.Core.DBManager;
 using VOL.Core.EFDbContext;
 using VOL.Core.Extensions;
 using VOL.Entity.DomainModels;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace VOL.Core.BaseProvider.DictionaryComponent
 {

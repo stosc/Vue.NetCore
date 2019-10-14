@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -30,7 +31,9 @@ namespace VOL.Core.Filters
         /// <param name="context"></param>
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            if (context.Filters.Any(item => item is IAllowAnonymousFilter))
+
+            var actionDescriptor = context.ActionDescriptor;
+            if(actionDescriptor.EndpointMetadata.Any(p=>p is AllowAnonymousAttribute))
             {
                 //如果是不需要授权方法并且传入了token，需要将用户的ID缓存起来，保证UserHelper里能正确获取到用户信息
                 if (!context.HttpContext.User.Identity.IsAuthenticated
@@ -44,17 +47,18 @@ namespace VOL.Core.Filters
                 }
                 return;
             }
+
+
             //限定一个帐号不能在多处登陆   UserContext.Current.Token != ((ClaimsIdentity)context.HttpContext.User.Identity)?.BootstrapContext?.ToString()
 
             // &&UserContext.Current.UserName!="admin666"为演示环境，实际使用时去掉此条件
             if (!context.HttpContext.User.Identity.IsAuthenticated
                 || (
-                UserContext.Current.Token != ((ClaimsIdentity)context.HttpContext.User.Identity)
-                ?.BootstrapContext?.ToString()
+                UserContext.Current.Token != ((ClaimsIdentity)context.HttpContext.User.Identity)?.BootstrapContext?.ToString()
                 &&UserContext.Current.UserName!="admin666"
                 ))
             {
-                Console.Write($"IsAuthenticated:{context.HttpContext.User.Identity.IsAuthenticated}," +
+                Console.WriteLine($"IsAuthenticated:{context.HttpContext.User.Identity.IsAuthenticated}," +
                     $"userToken{UserContext.Current.Token}" +
                     $"BootstrapContext:{((ClaimsIdentity)context.HttpContext.User.Identity)?.BootstrapContext?.ToString()}");
                 Response(context, "登陆已过期", HttpStatusCode.Unauthorized);

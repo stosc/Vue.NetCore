@@ -52,11 +52,14 @@ namespace VOL.Core.Configuration
         public static void Init(IServiceCollection services, IConfiguration configuration)
         {
             Configuration = configuration;
+            //TODO :
+           
             services.Configure<Secret>(configuration.GetSection("Secret"));
             services.Configure<Connection>(configuration.GetSection("Connection"));
             services.Configure<CreateMember>(configuration.GetSection("CreateMember"));
             services.Configure<ModifyMember>(configuration.GetSection("ModifyMember"));
             services.Configure<GlobalFilter>(configuration.GetSection("GlobalFilter"));
+            
 
 
             var provider = services.BuildServiceProvider();

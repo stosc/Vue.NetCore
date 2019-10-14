@@ -1,0 +1,5 @@
+--------Could not load file or assembly 'Microsoft.AspNetCore.Antiforgery.Reference, Culture=neutral, PublicKeyToken=null'. 系统找不到指定的文件。   at System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, RuntimeAssembly assemblyContext, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, StackCrawlMark& stackMark, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.Assembly.Load(AssemblyName assemblyRef, StackCrawlMark& stackMark, AssemblyLoadContext assemblyLoadContext)
+   at System.Runtime.Loader.AssemblyLoadContext.LoadFromAssemblyName(AssemblyName assemblyName)
+   at VOL.Core.EFDbContext.VOLContext.OnModelCreating(ModelBuilder modelBuilder) in E:\Repos\Vue.NetCore\Vue.Net\VOL.Core\EFDbContext\VOLContext.cs:line 96System.Private.CoreLib

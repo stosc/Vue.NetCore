@@ -571,7 +571,7 @@ namespace VOL.Core.BaseProvider
                   parameters.
                   Select(x => ((DbParameter)x).ParameterName + (((DbParameter)x).Direction.ToString() == "Output" ? " Output" : "")));
             }
-            return DBSet.FromSql($"{sql}", parameters).ToList();
+            return DBSet.FromSqlRaw($"{sql}", parameters).ToList();
         }
 
 
@@ -580,12 +580,12 @@ namespace VOL.Core.BaseProvider
             //直接拼接防注入的sql
             //string userName = "admin";
             //sql = $@"SELECT * FROM Sys_user WHERE Name = {userName}";
-            return DbContext.Database.ExecuteSqlCommand(sql, sqlParameters);
+            return DbContext.Database.ExecuteSqlRaw(sql, sqlParameters);
         }
 
         public virtual List<TEntity> FromSql(string sql, params SqlParameter[] sqlParameters)
         {
-            return DBSet.FromSql(sql, sqlParameters).ToList();
+            return DBSet.FromSqlRaw(sql, sqlParameters).ToList();
         }
 
 

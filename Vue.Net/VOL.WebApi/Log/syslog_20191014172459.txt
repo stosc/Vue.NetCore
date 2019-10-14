@@ -1,0 +1,6 @@
+Sys_DictionaryList--------The entity type 'Sys_DictionaryList' cannot be added to the model because an entity type with the same name already exists.   at Microsoft.EntityFrameworkCore.Metadata.Internal.Model.AddEntityType(EntityType entityType)
+   at Microsoft.EntityFrameworkCore.Metadata.Internal.Model.AddEntityType(Type type, ConfigurationSource configurationSource)
+   at Microsoft.EntityFrameworkCore.Metadata.Internal.Model.Microsoft.EntityFrameworkCore.Metadata.IMutableModel.AddEntityType(Type type)
+   at VOL.Core.EFDbContext.VOLContext.<>c__DisplayClass10_0.<OnModelCreating>b__2(Type t) in E:\Repos\Vue.NetCore\Vue.Net\VOL.Core\EFDbContext\VOLContext.cs:line 102
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at VOL.Core.EFDbContext.VOLContext.OnModelCreating(ModelBuilder modelBuilder) in E:\Repos\Vue.NetCore\Vue.Net\VOL.Core\EFDbContext\VOLContext.cs:line 93Microsoft.EntityFrameworkCore

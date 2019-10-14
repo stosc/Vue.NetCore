@@ -3,14 +3,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using VOL.Core.Const;
 using VOL.Core.Extensions;
@@ -36,7 +34,7 @@ namespace VOL.Web
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(options =>
             {
@@ -51,10 +49,11 @@ namespace VOL.Web
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
             });
 
+            services.AddControllers().AddNewtonsoftJson();
             services.AddHttpContextAccessor();
-            services.AddMvc().AddJsonOptions(op => op.SerializerSettings.ContractResolver =
+            services.AddMvc().AddNewtonsoftJson(op => op.SerializerSettings.ContractResolver =
                                 new Newtonsoft.Json.Serialization.DefaultContractResolver())
-                                .AddJsonOptions(options =>
+                                .AddNewtonsoftJson(options =>
                                 {
                                     options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                                 }); ;
@@ -70,7 +69,7 @@ namespace VOL.Web
                 //{
                 //}));
             });
-            return services.AddModule(Configuration);
+           services.AddModule(Configuration);
         }
 
 

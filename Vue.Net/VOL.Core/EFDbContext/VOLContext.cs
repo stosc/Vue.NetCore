@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
@@ -86,7 +87,7 @@ namespace VOL.Core.EFDbContext
                 var compilationLibrary = DependencyContext
                     .Default
                     .CompileLibraries
-                    .Where(x => !x.Serviceable && x.Type != "package");
+                    .Where(x => !x.Serviceable && x.Type == "project");               
                 foreach (var _compilation in compilationLibrary)
                 {
                     //加载指定类
@@ -99,11 +100,19 @@ namespace VOL.Core.EFDbContext
                         .ToList().ForEach(t =>
                         {
                             type = t;
-                            modelBuilder.Model.GetOrAddEntityType(t);
+
+                            var method = modelBuilder.GetType().GetMethods().Where(x => x.Name == "Entity").FirstOrDefault();
+                            if (method != null)
+                            {
+                                method = method.MakeGenericMethod(new Type[] { type });
+                                method.Invoke(modelBuilder, null);
+                            }
                         });
                 }
                 //modelBuilder.AddEntityConfigurationsFromAssembly(GetType().Assembly);
                 base.OnModelCreating(modelBuilder);
+
+
             }
             catch (Exception ex)
             {

@@ -288,8 +288,8 @@ namespace VOL.Core.ManageUser
             get
             {
                 //   if (!Context.User.Identity.IsAuthenticated)  return 0;
-                return (Context.User.FindFirstValue(JwtRegisteredClaimNames.Jti)
-                    ?? Context.User.FindFirstValue(ClaimTypes.NameIdentifier)).GetInt();
+                return (Context.User.FindFirst(JwtRegisteredClaimNames.Jti)
+                    ?? Context.User.FindFirst(ClaimTypes.NameIdentifier)).Value.GetInt();
             }
         }
 
