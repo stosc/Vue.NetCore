@@ -21,7 +21,7 @@ namespace VOL.Entity.DomainModels
        /// </summary>
        [Key]
        [Display(Name ="字典ID")]
-       [Column(TypeName="int")]
+       [Column("Dic_ID",TypeName = "int")]
        [Required(AllowEmptyStrings=false)]
        public int Dic_ID { get; set; }
 
@@ -151,8 +151,11 @@ namespace VOL.Entity.DomainModels
        [Column(TypeName="datetime")]
        public DateTime? ModifyDate { get; set; }
 
-       [Display(Name ="字典明细")]
-       public List<Sys_DictionaryList> Sys_DictionaryList { get; set; }
+        [Display(Name = "字典明细")]
+        public List<Sys_DictionaryList> Sys_DictionaryList { get; set; }
+
+
+
 
     }
 }

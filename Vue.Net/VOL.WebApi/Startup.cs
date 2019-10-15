@@ -41,7 +41,7 @@ namespace VOL.WebApi
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             
-            services.AddCors(option => option.AddPolicy("cors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(new[] { "http://localhost:8081", "http://127.0.0.1:9991" })));
+            services.AddCors(option => option.AddPolicy("cors", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(new[] { "http://localhost:8080", "http://127.0.0.1:9991" })));
             services.AddMvc()
             .AddNewtonsoftJson(op =>
             {

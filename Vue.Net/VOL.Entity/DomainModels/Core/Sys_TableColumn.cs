@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace VOL.Entity.DomainModels
 {
@@ -13,7 +14,10 @@ namespace VOL.Entity.DomainModels
         [Display(Name = "")]
         [Column(TypeName = "int")]
         [Editable(true)]
-        public int Table_Id { get; set; }
+        [ForeignKey("TableInfo")]
+        public int? Table_Id { get; set; }
+        [JsonIgnore]
+        public Sys_TableInfo TableInfo { get; set; }
 
         /// <summary>
         ///

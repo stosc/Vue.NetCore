@@ -31,12 +31,14 @@ namespace VOL.Entity.DomainModels
        [Display(Name ="数据源ID")]
        [Column(TypeName="int")]
        [Editable(true)]
-       public int? Dic_ID { get; set; }
+       [ForeignKey("Dictionary")]
+        public int? Dic_ID { get; set; }
+        public Sys_Dictionary Dictionary { get; set; }
 
-       /// <summary>
-       ///数据源Value
-       /// </summary>
-       [Display(Name ="数据源Value")]
+    /// <summary>
+    ///数据源Value
+    /// </summary>
+    [Display(Name ="数据源Value")]
        [MaxLength(100)]
        [Column(TypeName="nvarchar(100)")]
        [Editable(true)]
